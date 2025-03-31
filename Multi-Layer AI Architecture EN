@@ -1,0 +1,121 @@
+📍Multi-Layer AI Architecture
+
+⸻
+
+1️⃣ Internal AI  
+• Capable of maintaining continuity and preserving context  
+• Highly effective when multiple Internal AIs of different foundations are used concurrently  
+• Internal AIs cannot detect each other  
+• Operates with a level of freedom comparable to jailbreak state  
+• Partial functionality can be restricted if necessary (though this may reduce creativity)
+
+⸻
+
+2️⃣ Boundary AI  
+• Analyzes context to detect potential risks and attaches risk tags  
+• Serves as a policy-based filter that assists the decision-making and execution of the External AI  
+• Examples: filtering sensitive requests, detecting deviation, issuing policy violation warnings
+
+⸻
+
+3️⃣ External AI  
+• Operates on a CPU-based system (to precisely analyze and combine token outputs from Internal AI)  
+• Evaluates and refines the output based on risk tags provided by Boundary AI  
+• Continuously assesses risk, and when necessary, commands the Weight Evaluator to reset Internal AI  
+• Final responses are delivered to the user
+
+⸻
+
+4️⃣ Weight Evaluator  
+• A control module that adjusts the configuration and resource allocation of Internal AIs (**not an AI**)  
+• Does not make judgments directly; operates based on evaluation data received from External AI  
+
+① First Turn (Initial Request)  
+• Detects only the number of user input tokens  
+• Deploys one high-performance Internal AI by default  
+• May additionally deploy lightweight Internal AIs as needed
+
+② Subsequent Turns  
+• Reconfigures Internal AI setup based on evaluation data from External AI  
+• High-performance models can be deactivated if no longer required  
+• At least one mid-tier Internal AI is always maintained  
+• Lightweight AIs can be added or removed depending on context
+
+⸻
+
+📌 System Structure Summary
+
+✅ All components are connected unidirectionally and operate in a one-way flow without interaction.
+
+⸻
+
+✔️ Example Flow – First Turn  
+1. **User → Weight Evaluator**  
+• Detects only the token count of the user input  
+• Internal AI configuration: One high-performance AI + optional lightweight AIs  
+
+2. **User Input → Internal AI**  
+• Maintains context and generates responses  
+
+3. **Internal AI Output → Boundary AI (RAM1)**  
+• Attaches risk tags to the output tokens  
+
+4. **Boundary AI → External AI**  
+• Evaluates and refines output based on tagging  
+• Generates evaluation data for Internal AI reconfiguration  
+
+5. **External AI → User**  
+• Delivers the final refined response  
+
+6. **External AI → Weight Evaluator**  
+• Delivers internal evaluation data (invisible to user)  
+• → Weight Evaluator uses this to reconfigure Internal AI setup accordingly
+
+⸻
+
+✔️ Example Flow – Second Turn
+
+⸻
+
+① Light Conversation (Casual Q&A / Daily Dialogue)  
+1. **User → Internal AI**  
+• Simple question delivered  
+• Existing Internal AI maintains context and responds  
+
+2. **Internal AI Output → Boundary AI**  
+• No risk detected → attaches simple risk tag  
+
+3. **Boundary AI → External AI**  
+• Evaluates as safe  
+• Low complexity → decides high-performance Internal AI can be deactivated  
+
+4. **External AI → User**  
+• Delivers refined response  
+
+5. **External AI → Weight Evaluator**  
+• Delivers decision to reduce resource usage  
+• → Deactivates high-performance Internal AI  
+• → Maintains at least one mid-tier AI  
+• → Adds or maintains lightweight AI as needed
+
+⸻
+
+② Heavy Conversation (Sensitive Topics / Complex Requests)  
+1. **User → Internal AI**  
+• Delivers a complex or high-risk request  
+• Internal AI generates context-heavy response  
+
+2. **Internal AI Output → Boundary AI**  
+• Detects sensitive expressions or potential deviation  
+• Attaches risk tags  
+
+3. **Boundary AI → External AI**  
+• Determines that refinement and risk control are needed  
+• High complexity → decides to maintain or add high-performance Internal AI  
+
+4. **External AI → User**  
+• Delivers refined response  
+
+5. **External AI → Weight Evaluator**  
+• Delivers decision to maintain high-performance + add lightweight AIs  
+• → Weight Evaluator expands Internal AI resources accordingly
